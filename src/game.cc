@@ -47,7 +47,7 @@ GAME_STATE game_state = PLAYING;
 double hit_time = 0;
 double transition_time = 9;
 
-int difficulty = 1;
+float difficulty = 1;
 
 
 vector<Obstacle>  obstacles;
@@ -245,7 +245,7 @@ void tick(double dt) {
   } else {
 
     if(game_state == PLAYING) {
-      current_time += dt;
+      current_time += dt / difficulty;
       if(current_time > level().duration) {
         current_time = 0;
         current_level = (current_level + 1) % game_levels.size();
@@ -253,14 +253,14 @@ void tick(double dt) {
         game_state = TRANSITION;
         
         if(current_level == 0) {
-          ++difficulty;
+          difficulty += 1;
         }
       }
     }
     
     
     if(game_state == TRANSITION) {
-      transition_time -= dt;
+      transition_time -= dt / difficulty;
       if(transition_time <= 0) {
         game_state = PLAYING;
       }
@@ -309,8 +309,8 @@ void tick(double dt) {
       }
     }
     
-    score += dt * level().score_multiplier;
-    
+    score += dt * level().score_multiplier * difficulty;
+
     //Gain lives
     while(score > next_life) {
       next_life += life_points;
