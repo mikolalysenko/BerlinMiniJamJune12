@@ -49,8 +49,13 @@ void input() {
   int mx, my;
   glfwGetMousePos(&mx, &my);
   mouse_state[0] = mouse_state[1];    
-  mouse_state[1][0] = mx;
-  mouse_state[1][1] = my;
+  mouse_state[1][0] = mx / (float)w;
+  mouse_state[1][1] = my / (float)h;
+  
+  for(int i=0; i<2; ++i) {
+    if(mouse_state[1][i] < 0) { mouse_state[1][i] = 0; }
+    if(mouse_state[1][i] > 1) { mouse_state[1][i] = 1; }
+  }
   
   Game::input(mouse_state);
 }

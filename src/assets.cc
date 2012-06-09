@@ -25,6 +25,10 @@ namespace Assets {
 
 //Artwork
 #include "artwork/torus.h"
+#include "artwork/pillar.h"
+#include "artwork/shrub.h"
+#include "artwork/boxoid.h"
+#include "artwork/spike.h"
 
 };
 
@@ -44,6 +48,10 @@ void initialize_assets() {
 	//Create player artwork
 	{
 		artwork_database["torus"] = make_torus();
+		artwork_database["pillar"] = make_pillar();
+		artwork_database["shrub"] = make_shrub();
+		artwork_database["boxoid"] = make_boxoid();
+		artwork_database["spike"] = make_spike();
 	}
 }
 

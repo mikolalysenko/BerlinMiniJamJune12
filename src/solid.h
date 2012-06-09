@@ -19,7 +19,6 @@ struct Vertex {
 
 struct Cell {
 	float density;
-	
 };
 
 struct Solid {
