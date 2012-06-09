@@ -30,7 +30,7 @@ double current_time = 0;
 
 Vector3f player_position;
 Vector3f player_velocity;
-float player_move_speed = 7;
+float player_move_speed = 8;
 double score = 0.0f;
 
 int next_life = 5000;
@@ -45,7 +45,7 @@ enum GAME_STATE {
 };
 GAME_STATE game_state = PLAYING;
 double hit_time = 0;
-double transition_time = 0;
+double transition_time = 9;
 
 int difficulty = 1;
 
@@ -188,8 +188,12 @@ void init() {
 }
 
 void input(std::array<Eigen::Vector2f, 2> const& mouse_state) {
-  player_velocity[0] = -0.01 * level().fly_speed * pow(player_move_speed * (0.5 - mouse_state[1][0]), 3);
-  player_velocity[1] = -0.01 * level().fly_speed * pow(player_move_speed * (mouse_state[1][1] - 0.5), 3);
+
+  float dx = 0.5 - mouse_state[1][0],
+        dy = mouse_state[1][1] - 0.5;
+
+  player_velocity[0] = -0.01 * level().fly_speed * (pow(player_move_speed * (0.5 - mouse_state[1][0]), 3) + 100*dx);
+  player_velocity[1] = -0.01 * level().fly_speed * (pow(player_move_speed * (mouse_state[1][1] - 0.5), 3) + 100*dy);
   player_velocity[2] = -level().fly_speed;
   
   if(glfwGetKey('S') == GLFW_PRESS && game_state == PLAYING) {
