@@ -1,0 +1,7 @@
+*.mpeg
+*.mpg
+a.out
+obj/*
+*~
+*.log
+
